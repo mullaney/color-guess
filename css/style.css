@@ -1,0 +1,159 @@
+body {
+  background: #cccccc;
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+
+header, nav, main {
+  display: grid;
+  grid-template-columns: 1fr 110px 110px 1fr;
+  grid-column-gap: 1em;
+}
+
+header {
+  background: steelblue;
+  color: white;
+  grid-template-areas:
+    ". title title ."
+    ". rgb rgb .";
+}
+
+nav {
+  background: white;
+  color: steelblue;
+  grid-template-areas: ". navbar navbar .";
+}
+
+main {
+  grid-gap: 1.2em;
+  padding-top: 1em;
+  grid-template-areas:
+    ". choice-0 choice-1 ."
+    ". choice-2 choice-3 ."
+    ". choice-4 choice-5 .";
+}
+
+.selected {
+  background: steelblue;
+  color: white;
+}
+
+.button {
+  padding: 0 .5em;
+}
+
+#title {
+  grid-area: title;
+  font-size: 1em;
+  font-weight: normal;
+  text-align: center;
+  padding: 0;
+  margin: 0.5em 0 0 0;
+  text-transform: uppercase;
+}
+
+#rgb {
+  grid-area: rgb;
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: .5em;
+}
+
+#navbar {
+  grid-area: navbar;
+}
+
+#nav-right {
+  float: right;
+}
+
+.color-choice {
+  height: 110px;
+  border-radius: 20%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+#choice-0 {
+  grid-area: choice-0;
+  background: green;
+}
+
+#choice-1 {
+  grid-area: choice-1;
+  background: red;
+}
+
+#choice-2 {
+  grid-area: choice-2;
+  background: blue;
+}
+
+#choice-3 {
+  grid-area: choice-3;
+  background: yellow;
+}
+
+#choice-4 {
+  grid-area: choice-4;
+  background: purple;
+}
+
+#choice-5 {
+  grid-area: choice-5;
+  background: cyan;
+}
+
+
+@media only screen and (min-width : 499px) {
+  body {
+    font-size: 14px;
+  }
+  header {
+    grid-template-areas:
+      ". title title title ."
+      ". rgb rgb rgb .";
+  }
+  main {
+    grid-template-areas:
+      ". choice-0 choice-1 choice-2 ."
+      ". choice-3 choice-4 choice-5 .";
+  }
+
+  nav {
+    background: white;
+    color: steelblue;
+    grid-template-areas: ". navbar navbar navbar .";
+  }
+
+  header, nav, main {
+    grid-template-columns: 1fr 110px 110px 110px 1fr;
+  }
+}
+
+@media only screen and (min-width : 750px) {
+  header, nav, main {
+    grid-template-columns: 1fr 200px 200px 200px 1fr;
+  }
+  .color-choice {
+    height: 200px;
+  }
+  body {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (min-width : 750px) {
+  header, nav, main {
+    grid-template-columns: 1fr 200px 200px 200px 1fr;
+  }
+  .color-choice {
+    height: 200px;
+  }
+  body {
+    font-size: 22px;
+  }
+  #rgb {
+    font-size: 3em;
+  }
+}
