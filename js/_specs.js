@@ -15,15 +15,22 @@ describe('randomNum function', function() {
     for (var i = 0; i < 1000; i++) {
       num = randomNum(i + 5);
       expect(num).toBeGreaterThan(-1);
-      expect(num).toBeLessThan(i + 10);
+      expect(num).toBeLessThan(i + 5);
     }
   });
+  it('returns a number using the increment provided', function() {
+    for (var i = 0; i < 20; i++) {
+      var num = randomNum(255, 32);
+      expect(num % 32).toBe(0);
+    }
+  })
 });
 
 describe('randomColor function', function() {
-  it('returns a random color as an array with 3 numbers', function() {
+  it('returns a random color as an string in rgb format', function() {
     var color = randomColor();
-    expect(color.length).toBe(3);
-    expect(Array.isArray(color)).toBe(true);
+    expect(color).toMatch(/rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/);
   });
-})
+});
+
+//

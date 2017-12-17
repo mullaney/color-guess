@@ -1,7 +1,9 @@
-var rgb = document.querySelector('div#rgb');
-var reset = document.querySelector('span#reset');
-var easy = document.querySelector('span#easy');
-var hard = document.querySelector('span#hard');
+var easyMode = true;
+
+var rgbDiv = document.querySelector('div#rgb');
+var resetButton = document.querySelector('span#reset');
+var easyButton = document.querySelector('span#easy');
+var hardButton = document.querySelector('span#hard');
 var choices = [
   document.querySelector('div#choice-0'),
   document.querySelector('div#choice-1'),
@@ -11,12 +13,19 @@ var choices = [
   document.querySelector('div#choice-5'),
 ];
 
-function randomNum(n) {
-  return Math.floor(Math.random() * n);
+function randomNum(num, inc) {
+  if (inc === undefined) {
+    inc = 1;
+  }
+  return Math.floor(Math.random() * (Math.floor(num / inc))) * inc;
 }
 
 function randomColor() {
-  return [randomNum(255), randomNum(255), randomNum(255)];
+  var incr = 8;
+  if (easyMode === true) {
+    incr = 32;
+  }
+  return 'rgb(' + randomNum(256, incr) + ', ' + randomNum(256, incr) + ', ' + randomNum(256, incr) + ')';
 }
 
 function Game() {
@@ -29,11 +38,34 @@ function Game() {
 
 Game.prototype.showColorChoices = function() {
   for (var i = 0; i < choices.length; i++) {
-    choices[i].style.backgroundColor = "rgb(" + this.colors[i][0] + ", " + this.colors[i][1] + ", " + this.colors[i][2] + ")"
+    choices[i].style.backgroundColor = this.colors[i];
   }
 }
 
-var game = new Game();
-game.showColorChoices();
+Game.prototype.showColorToGuess = function () {
+  rgbDiv.innerText = this.colors[this.secret];
+};
+
+var game = {};
+
+resetButton.addEventListener('click', function() {
+  resetGame();
+});
+
+resetButton.addEventListener('mouseover', function() {
+  this.classList.add('buttonHover');
+});
+
+resetButton.addEventListener('mouseout', function() {
+  this.classList.remove('buttonHover');
+})
+
+function resetGame() {
+  game = new Game();
+  game.showColorChoices();
+  game.showColorToGuess();
+}
+
+
 
 // reset.addEventListener('click', );
