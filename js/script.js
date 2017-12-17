@@ -28,12 +28,46 @@ function randomColor() {
   return 'rgb(' + randomNum(256, incr) + ', ' + randomNum(256, incr) + ', ' + randomNum(256, incr) + ')';
 }
 
+function differentEnough(color1, color2) {
+  var differences = 0;
+  for (var i = 0; i < color1.length; i++) {
+    if (color1[i] !== color2[i]) {
+      differences++;
+    }
+  }
+  if (differences > 1) return true;
+  return false;
+}
+
+function rgbToArray(colorStr) {
+  return colorStr.slice(4, -1)
+                 .split(', ')
+                 .map(function(numStr) {
+                   return Number(numStr);
+                 });
+}
+
+function uniqueColor(arr, color) {
+  return arr.every(function(inArr) {
+    return differentEnough(rgbToArray(inArr), rgbToArray(color)) === true;
+  })
+}
+
 function Game() {
   this.colors = [];
-  for (var i = 0; i < 6; i++) {
-    this.colors.push(randomColor());
-  }
   this.secret = randomNum(6);
+}
+
+Game.prototype.randomizeColors = function() {
+  this.colors = [];
+  for (var i = 0; i < 6; i++) {
+    while (this.colors.length <= i) {
+      var color = randomColor();
+      if (uniqueColor(this.colors, color)) {
+        this.colors.push(color);
+      }
+    }
+  }
 }
 
 Game.prototype.showColorChoices = function() {
@@ -47,6 +81,7 @@ Game.prototype.showColorToGuess = function () {
 };
 
 var game = {};
+resetGame();
 
 resetButton.addEventListener('click', function() {
   resetGame();
@@ -58,10 +93,17 @@ resetButton.addEventListener('mouseover', function() {
 
 resetButton.addEventListener('mouseout', function() {
   this.classList.remove('buttonHover');
-})
+});
+
+// for (var i = 0; i < choices.length; i++) {
+//   choices[i].addEventListener('click', function() {
+//     if (this.backgroundColor === )
+//   });
+// }
 
 function resetGame() {
   game = new Game();
+  game.randomizeColors();
   game.showColorChoices();
   game.showColorToGuess();
 }
