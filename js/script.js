@@ -12,6 +12,7 @@ var choices = [
   document.querySelector('div#choice-4'),
   document.querySelector('div#choice-5'),
 ];
+var header = document.querySelector('header');
 
 function randomNum(num, inc) {
   if (inc === undefined) {
@@ -95,17 +96,45 @@ resetButton.addEventListener('mouseout', function() {
   this.classList.remove('buttonHover');
 });
 
-// for (var i = 0; i < choices.length; i++) {
-//   choices[i].addEventListener('click', function() {
-//     if (this.backgroundColor === )
-//   });
-// }
+hardButton.addEventListener('click', function() {
+  if (easyMode === true) {
+    easyMode = false;
+    this.classList.add('highlighted');
+    easyButton.classList.remove('highlighted');
+    resetGame();
+  }
+});
+
+easyButton.addEventListener('click', function() {
+  if (easyMode === false) {
+    easyMode = true;
+    this.classList.add('highlighted');
+    hardButton.classList.remove('highlighted');
+    resetGame();
+  }
+});
+
+for (var i = 0; i < choices.length; i++) {
+  choices[i].addEventListener('click', function() {
+    if (this.style.backgroundColor === game.colors[game.secret]) {
+      header.style.backgroundColor = game.colors[game.secret];
+      for (var j = 0; j < choices.length; j++) {
+        choices[j].classList.remove('poofed');
+        choices[j].style.backgroundColor = game.colors[game.secret];
+      }
+    } else {
+      this.classList.add('poofed');
+      this.removeAttribute('style');
+    }
+  });
+}
 
 function resetGame() {
   game = new Game();
   game.randomizeColors();
   game.showColorChoices();
   game.showColorToGuess();
+  header.removeAttribute('style');
 }
 
 
