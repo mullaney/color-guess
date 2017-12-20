@@ -72,4 +72,12 @@ describe('rgbToArray function', function() {
     expect(rgbToArray(str)).toEqual([255, 255, 255]);
   })
 })
-//
+
+describe('percent function', function() {
+  it('takes two numbers as arguments and returns a string', function() {
+    expect(percent(7, 7)).toBe('50%');
+    expect(percent(0, 7)).toBe('0%');
+    expect(percent(7, 0)).toBe('100%');
+    expect(percent(3, 9)).toBe('25%');
+  });
+});

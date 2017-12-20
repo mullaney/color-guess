@@ -13,6 +13,9 @@ var choices = [
   document.querySelector('div#choice-5'),
 ];
 var header = document.querySelector('header');
+var notice = document.querySelector('#notice');
+var correctGuesses = 0;
+var incorrectGuesses = 0;
 
 function randomNum(num, inc) {
   if (inc === undefined) {
@@ -52,6 +55,10 @@ function uniqueColor(arr, color) {
   return arr.every(function(inArr) {
     return differentEnough(rgbToArray(inArr), rgbToArray(color)) === true;
   })
+}
+
+function percent(correct, incorrect) {
+  return Math.round((correct / (correct + incorrect)) * 100) + '%';
 }
 
 function Game() {
@@ -122,10 +129,13 @@ for (var i = 0; i < choices.length; i++) {
         choices[j].classList.remove('poofed');
         choices[j].style.backgroundColor = game.colors[game.secret];
       }
+      correctGuesses++;
     } else {
       this.classList.add('poofed');
       this.removeAttribute('style');
+      incorrectGuesses++;
     }
+    notice.innerText = 'You have been correct ' + percent(correctGuesses, incorrectGuesses) + ' of the time.'
   });
 }
 

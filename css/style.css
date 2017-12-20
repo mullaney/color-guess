@@ -31,7 +31,8 @@ main {
   grid-template-areas:
     ". choice-0 choice-1 ."
     ". choice-2 choice-3 ."
-    ". choice-4 choice-5 .";
+    ". choice-4 choice-5 ."
+    ". notice notice .";
 }
 
 .highlighted {
@@ -108,6 +109,11 @@ div.poofed {
   grid-area: choice-5;
 }
 
+#notice {
+  grid-area: notice;
+  text-align: center;
+}
+
 
 @media only screen and (min-width : 499px) {
   body {
@@ -121,7 +127,8 @@ div.poofed {
   main {
     grid-template-areas:
       ". choice-0 choice-1 choice-2 ."
-      ". choice-3 choice-4 choice-5 .";
+      ". choice-3 choice-4 choice-5 ."
+      ". notice notice notice .";
   }
 
   nav {
@@ -133,17 +140,20 @@ div.poofed {
   header, nav, main {
     grid-template-columns: 1fr 110px 110px 110px 1fr;
   }
+  #rgb {
+    font-size: 3em;
+  }
 }
 
-@media only screen and (min-width : 750px) {
+@media only screen and (min-width : 600px) {
   header, nav, main {
-    grid-template-columns: 1fr 200px 200px 200px 1fr;
+    grid-template-columns: 1fr 150px 150px 150px 1fr;
   }
   .color-choice {
-    height: 200px;
+    height: 150px;
   }
   body {
-    font-size: 22px;
+    font-size: 18px;
   }
 }
 
