@@ -95,13 +95,13 @@ resetButton.addEventListener('click', function() {
   resetGame();
 });
 
-resetButton.addEventListener('mouseover', function() {
-  this.classList.add('buttonHover');
-});
-
-resetButton.addEventListener('mouseout', function() {
-  this.classList.remove('buttonHover');
-});
+// resetButton.addEventListener('mouseover', function() {
+//   this.classList.add('buttonHover');
+// });
+//
+// resetButton.addEventListener('mouseout', function() {
+//   this.classList.remove('buttonHover');
+// });
 
 hardButton.addEventListener('click', function() {
   if (easyMode === true) {
