@@ -16,20 +16,24 @@ var header = document.querySelector('header');
 var notice = document.querySelector('#notice');
 var correctGuesses = 0;
 var incorrectGuesses = 0;
+var consecutiveCorrect = 0;
+var increment = 64;
 
 function randomNum(num, inc) {
   if (inc === undefined) {
     inc = 1;
   }
-  return Math.floor(Math.random() * (Math.floor(num / inc))) * inc;
+  return Math.floor(Math.random() * (Math.floor(num / inc))) * inc + inc - 1;
 }
 
 function randomColor() {
-  var incr = 8;
-  if (easyMode === true) {
-    incr = 32;
+  return 'rgb(' + randomNum(256, increment) + ', ' + randomNum(256, increment) + ', ' + randomNum(256, increment) + ')';
+}
+
+function makeHarder() {
+  if (increment > 2) {
+    increment = increment / 2;
   }
-  return 'rgb(' + randomNum(256, incr) + ', ' + randomNum(256, incr) + ', ' + randomNum(256, incr) + ')';
 }
 
 function differentEnough(color1, color2) {
@@ -130,12 +134,19 @@ for (var i = 0; i < choices.length; i++) {
         choices[j].style.backgroundColor = game.colors[game.secret];
       }
       correctGuesses++;
+      consecutiveCorrect++;
+      // debugger;
+      if (consecutiveCorrect >= 5) {
+        makeHarder();
+        consecutiveCorrect = 0;
+      }
     } else {
       this.classList.add('poofed');
       this.removeAttribute('style');
       incorrectGuesses++;
+      consecutiveCorrect = 0;
     }
-    notice.innerText = 'You have been correct ' + percent(correctGuesses, incorrectGuesses) + ' of the time.'
+    notice.innerHTML = 'You have been correct ' + percent(correctGuesses, incorrectGuesses) + ' of the time.<br>You have guessed ' + consecutiveCorrect + ' times in a row.'
   });
 }
 

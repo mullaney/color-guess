@@ -42,7 +42,7 @@ describe('randomNum function', function() {
   it('returns a number using the increment provided', function() {
     for (var i = 0; i < 20; i++) {
       var num = randomNum(255, 32);
-      expect(num % 32).toBe(0);
+      expect(num % 32).toBe(31);
     }
   })
 });
